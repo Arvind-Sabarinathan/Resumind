@@ -7,33 +7,33 @@ interface FileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0] || null;
 
+      setSelectedFile(file);
       onFileSelect?.(file);
     },
-    [onFileSelect],
+    [onFileSelect, setSelectedFile],
   );
 
   const maxFileSize = 20 * 1024 * 1024;
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({
-      onDrop,
-      multiple: false,
-      accept: { "application/pdf": [".pdf"] },
-      maxSize: 20 * 1024 * 1024,
-    });
-
-  const file = acceptedFiles[0] || null;
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: { "application/pdf": [".pdf"] },
+    maxSize: maxFileSize,
+  });
 
   return (
     <div className="gradient-border w-full">
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         <div className="cursor-pointer space-y-4">
-          {file ? (
+          {selectedFile ? (
             <div
               className="uploader-selected-file"
               onClick={(e) => e.stopPropagation()}
@@ -42,10 +42,10 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
               <div className="flex items-center space-x-3">
                 <div>
                   <p className="max-w-xs truncate text-sm font-medium text-gray-700">
-                    {file.name}
+                    {selectedFile.name}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {formatSize(file.size)}
+                    {formatSize(selectedFile.size)}
                   </p>
                 </div>
               </div>
@@ -53,6 +53,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
               <button
                 className="cursor-pointer p-2"
                 onClick={(e) => {
+                  setSelectedFile(null);
                   onFileSelect?.(null);
                 }}
               >

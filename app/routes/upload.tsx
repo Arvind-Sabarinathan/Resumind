@@ -19,15 +19,24 @@ const upload = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.currentTarget.closest("form");
-
-    if (!form) return;
+    const form = e.currentTarget;
 
     const formData = new FormData(form);
 
     const companyName = formData.get("company-name");
     const jobTitle = formData.get("job-title");
     const jobDescription = formData.get("job-description");
+
+    // Validate required fields
+    if (!companyName || !jobTitle || !jobDescription) {
+      alert("Please fill in all required fields");
+      return;
+    }
+
+    if (!file) {
+      alert("Please upload a resume PDF");
+      return;
+    }
 
     console.log({ companyName, jobTitle, jobDescription, file });
   };
@@ -87,7 +96,7 @@ const upload = () => {
                 />
               </div>
               <div className="form-div">
-                <label htmlFor="uploader">Upload Resume</label>
+                <p className="text-dark-200">Upload Resume</p>
                 <FileUploader onFileSelect={handleFileSelect} />
               </div>
               <button type="submit" className="primary-button">
