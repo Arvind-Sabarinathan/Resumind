@@ -12,7 +12,7 @@ export const meta = () => [
   { name: "description", content: "Upload your resume to get AI feedback!" },
 ];
 
-const upload = () => {
+const Upload = () => {
   const { auth, isLoading, fs, ai, kv } = usePuterStore();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -96,6 +96,8 @@ const upload = () => {
     setStatusText("Analysis complete, redirecting...");
 
     console.log(data);
+
+    navigate(`/resume/${uuid}`);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -197,4 +199,4 @@ const upload = () => {
   );
 };
 
-export default upload;
+export default Upload;
