@@ -1,7 +1,6 @@
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router";
 import FileUploader from "~/components/FileUploader";
-import Navbar from "~/components/Navbar";
 import { prepareInstructions } from "~/constants";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { usePuterStore } from "~/lib/puter";
@@ -13,11 +12,15 @@ export const meta = () => [
 ];
 
 const Upload = () => {
-  const { auth, isLoading, fs, ai, kv } = usePuterStore();
+  const { auth, fs, ai, kv } = usePuterStore();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState("");
   const [file, setFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (!auth.isAuthenticated) navigate("/auth?next=/upload");
+  }, [auth.isAuthenticated]);
 
   const handleFileSelect = (file: File | null) => {
     setFile(file);
@@ -131,8 +134,15 @@ const Upload = () => {
   };
 
   return (
-    <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-      <Navbar />
+    <main className="bg-[url('/images/bg-main.svg')] bg-cover pt-0!">
+      <nav className="resume-nav">
+        <Link to="/" className="back-button">
+          <img src="/icons/back.svg" alt="Back" className="h-2.5 w-2.5" />
+          <span className="text-sm font-semibold text-gray-800">
+            Back to Home
+          </span>
+        </Link>
+      </nav>
 
       <section className="main-section">
         <div className="page-heading py-16">
