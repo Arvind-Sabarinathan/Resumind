@@ -8,8 +8,13 @@ const Wipe = () => {
   const [files, setFiles] = useState<FSItem[]>([]);
 
   const loadFiles = async () => {
-    const files = (await fs.readDir("./")) as FSItem[];
-    setFiles(files);
+    try {
+      const files = (await fs.readDir("./")) as FSItem[];
+      setFiles(files);
+    } catch (err) {
+      console.error("Failed to load files:", err);
+      setFiles([]);
+    }
   };
 
   useEffect(() => {
