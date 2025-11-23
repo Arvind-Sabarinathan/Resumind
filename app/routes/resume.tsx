@@ -49,7 +49,7 @@ const Resume = () => {
   }, [id, kv, fs]);
 
   return (
-    <main className="pt-0!">
+    <main className="bg-[url('/images/bg-small.svg')] bg-cover pt-0!">
       <nav className="resume-nav">
         <Link to="/" className="back-button">
           <img src="/icons/back.svg" alt="Back" className="h-2.5 w-2.5" />
@@ -59,7 +59,7 @@ const Resume = () => {
         </Link>
       </nav>
       <div className="flex w-full flex-row max-lg:flex-col-reverse">
-        <section className="feedback-section sticky top-0 h-screen items-center justify-center bg-[url('/images/bg-small.svg')] bg-cover">
+        <section className="feedback-section sticky top-0 h-screen items-center justify-center">
           {imageUrl && resumeUrl && (
             <div className="animate-in fade-in gradient-border h-[90%] w-fit duration-1000 max-2xl:h-fit max-sm:m-0">
               <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
