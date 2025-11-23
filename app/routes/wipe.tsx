@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { usePuterStore } from "~/lib/puter";
 
+export const meta = () => [
+  { title: "Resumind | Wipe" },
+  { name: "description", content: "Clear all your data and start fresh!" },
+];
+
 const Wipe = () => {
   const { auth, isLoading, error, fs, kv } = usePuterStore();
   const navigate = useNavigate();
@@ -29,7 +34,7 @@ const Wipe = () => {
 
   const handleDelete = async () => {
     try {
-      await Promise.all(files.map(file => fs.delete(file.path)));
+      await Promise.all(files.map((file) => fs.delete(file.path)));
       await kv.flush();
       await loadFiles();
     } catch (err) {
