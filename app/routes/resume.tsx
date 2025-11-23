@@ -21,7 +21,7 @@ const Resume = () => {
   useEffect(() => {
     if (!isLoading && !auth.isAuthenticated)
       navigate(`/auth?next=/resume/${id}`);
-  }, [isLoading]);
+  }, [isLoading, auth.isAuthenticated, navigate, id]);
 
   useEffect(() => {
     const loadResume = async () => {
@@ -44,11 +44,9 @@ const Resume = () => {
       setImageUrl(imageUrl);
 
       setFeedback(data.feedback);
-
-      console.log({ resumeUrl, imageUrl, feedback: data.feedback });
     };
     loadResume();
-  }, [id]);
+  }, [id, kv, fs]);
 
   return (
     <main className="pt-0!">
@@ -61,9 +59,9 @@ const Resume = () => {
         </Link>
       </nav>
       <div className="flex w-full flex-row max-lg:flex-col-reverse">
-        <section className="feedback-section bg-[url('/images/bg-small.svg') sticky top-0 h-screen items-center justify-center bg-cover">
+        <section className="feedback-section sticky top-0 h-screen items-center justify-center bg-[url('/images/bg-small.svg')] bg-cover">
           {imageUrl && resumeUrl && (
-            <div className="animate-in fade-in gradient-border max-wxl:h-fit h-[90%] w-fit duration-1000 max-sm:m-0">
+            <div className="animate-in fade-in gradient-border h-[90%] w-fit duration-1000 max-2xl:h-fit max-sm:m-0">
               <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
                 <img
                   src={imageUrl}
