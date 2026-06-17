@@ -1,87 +1,49 @@
-# Welcome to React Router!
+# Resumind
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Resumind is a full-stack, serverless web application that uses AI to analyze and score resumes. Upload a PDF, optionally provide a job title and description, and receive detailed feedback across multiple categories including ATS compatibility, tone and style, content, structure, and skills.
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **AI-Powered Analysis** -- Leverages Claude Sonnet 4 via Puter.js to evaluate resumes against job descriptions.
+- **Comprehensive Scoring** -- Receives an overall score (0-100) along with breakdowns for ATS, tone, content, structure, and skills.
+- **Detailed Feedback** -- Each category includes actionable tips highlighting what was done well and what can be improved.
+- **PDF Upload** -- Drag-and-drop file upload with client-side PDF processing using PDF.js.
+- **Resume Dashboard** -- View all analyzed resumes with score previews and thumbnail images.
+- **Serverless Architecture** -- Powered entirely by Puter.js for authentication, file storage, AI inference, and data persistence; no backend server required.
+
+## Tech Stack
+
+- **React 19** with **React Router v7** (full-stack, SSR)
+- **TypeScript** for type safety
+- **Vite** as the build tool and dev server
+- **Tailwind CSS v4** for styling
+- **Puter.js** for serverless backend (auth, storage, AI, key-value store)
+- **PDF.js** (pdfjs-dist) for client-side PDF rendering
+- **Zustand** for state management
+- **Docker** for containerized deployment
 
 ## Getting Started
 
-### Installation
+### Prerequisites
 
-Install the dependencies:
+- Node.js 20 or later
+- npm
 
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
+### Available Scripts
 
 ```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
+npm install        # Install dependencies
+npm run dev        # Start dev server with HMR
+npm run build      # Produce an optimized production build
+npm run start      # Serve the production build
+npm run typecheck  # Generate route types and run TypeScript validation
 ```
 
 ## Deployment
 
-### Docker Deployment
-
-To build and run using Docker:
+A multi-stage `Dockerfile` is included for containerized deployment. Build and run the image with your preferred container runtime:
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+docker build -t resumind .
+docker run -p 3000:3000 resumind
 ```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
